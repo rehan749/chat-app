@@ -15,26 +15,30 @@ const io = new Server(server,{
     origin:"http://localhost:3000",
     methods: ["GET", "PUT"]
   }
-
+  
 });
 
 
 
 io.on('connection', (socket) => {
-    console.log('a user connected', socket.id);
-    socket.on("join_room",(data)=>{
-      socket.join(data)
-      console.log(`User ID: ${socket.id} room ID: ${data}`)
-    })
-
-    socket.on("send_message", (data) => {
-      console.log("Received message:", data);
-      // Handle the message data as needed
-    });
-    socket.on('disconnect', () => {
-      console.log('user disconnected', socket.id);
-    });
+  console.log('a user connected', socket.id);
+  
+  socket.on("join_room",(data)=>{
+      socket.join(data);
+      console.log(`User ID: ${socket.id} room ID: ${data}`);
   });
+
+  socket.on("send_message", (data) => {
+      console.log("send_message:", data);
+      // Handle the message data as needed
+      socket.to(data.roomId).emit("receive_message", data);
+  });
+
+  socket.on('disconnect', () => {
+      console.log('user disconnected', socket.id);
+  });
+});
+
   
   app.get('/', (req, res) => {
   res.send('Hello World!')

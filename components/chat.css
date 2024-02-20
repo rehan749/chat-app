@@ -14,7 +14,7 @@
     max-width: 867px;
     /* margin: 25px 10px; */
     margin: auto;
-    height: calc(100% - 50px);
+    height: 800px;
     border: var(--border);
     border-radius: 5px;
     background: var(--msger-bg);
@@ -53,8 +53,8 @@
     margin: 0;
   }
   .msg-img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     margin-right: 10px;
     background: #ddd;
     background-repeat: no-repeat;
@@ -64,9 +64,10 @@
   }
   .msg-bubble {
     max-width: 450px;
-    padding: 15px;
+    padding: 10px;
     border-radius: 15px;
     background: var(--left-msg-bg);
+    margin: 5px 0px;
   }
   .msg-info {
     display: flex;
@@ -87,7 +88,7 @@
   }
   
   .right-msg {
-    flex-direction: row-reverse;
+    flex-direction: column;
   }
   .right-msg .msg-bubble {
     background: var(--right-msg-bg);

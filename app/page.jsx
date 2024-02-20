@@ -1,14 +1,14 @@
 "use client";
 
-import { io } from "socket.io-client";
 import { useState } from "react";
 import Chat from "@/components/Chat";
+import { io } from "socket.io-client";
 
 const socket = io.connect("http://localhost:5000");
 
 export default function Home() {
   const [login, setLogin] = useState({ name: "", roomId: "" });
-  const [room, setRoom] = useState("");
+  // const [room, setRoom] = useState("");
 
   const joinRoom = () => {
     // Check if name and roomId are not empty strings
@@ -30,21 +30,21 @@ export default function Home() {
     // console.log(login);
     console.log("login state:", login);
     // Clear the input fields by resetting the state
-    setLogin({ name: "", roomId: "" });
+    // setLogin({ name: "", roomId: "" });
   };
 
   return (
     // login page
     <section>
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="m-auto max-w-full p-5 border">
+        <div className="m-auto max-w-full p-5 border bg-black">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               className="mx-auto h-10 w-auto"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt="Your Company" />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-             Join Room Now
+            <h2 className=" mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+             Join Room 
             </h2>
           </div>
 
@@ -53,7 +53,7 @@ export default function Home() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-white"
                 >
                  full name 
                 </label>
@@ -75,7 +75,7 @@ export default function Home() {
                 <div className="flex items-center justify-between">
                   <label
                     htmlFor="roomId"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6 text-white"
                   >
                     roomId
                   </label>

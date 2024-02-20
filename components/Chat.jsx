@@ -1,30 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./chat.css";
 
 const Chat = ({ socket, name, roomId }) => {
   const [msg, setMsg] = useState("");
+  const [msgList, setMsgList] = useState([]);
 
   const sendMessage = async () => {
     if (msg !== "") {
-      // Create a new Date object to get the current time
       const now = new Date();
-  
-      // Construct the message data object
       const messageData = {
-        id: Math.random(), // Generate a random ID
-        roomId: roomId, // Access roomId from props
-        author: name, // Access name from props
+        id: Math.random(),
+        roomId: roomId,
+        author: name,
         message: msg,
-        time: `${now.getHours()}:${now.getMinutes()}` // Format the time as HH:MM
+        time: `${now.getHours()}:${now.getMinutes()}`,
       };
-  
-      // Now you can send the messageData to the server or wherever it needs to be sent
+
       await socket.emit("send_message", messageData);
       console.log("send_message", messageData);
+
+      setMsgList((list) => [...list, messageData]);
     }
   };
-  
-  
+
+  useEffect(() => {
+    const handleRecMsg = (data) => {
+      setMsgList((list) => [...list, data]);
+    };
+    socket.on("receive_message", handleRecMsg);
+
+    return () => {
+      socket.off("receive_message");
+    };
+  }, [socket]);
 
   const handleChange = (e) => {
     setMsg(e.target.value);
@@ -36,7 +44,9 @@ const Chat = ({ socket, name, roomId }) => {
   };
   return (
     <section className="msger">
-      <h1>welcome to {name}</h1>
+      <h1 className="font-black text-center text-3xl py-4">
+        Welcome to {name}
+      </h1>
 
       <header className="msger-header">
         <div className="msger-header-title">
@@ -69,21 +79,23 @@ const Chat = ({ socket, name, roomId }) => {
         </div>
 
         <div className="msg right-msg">
-          <div
-            className="msg-img"
-            style={{ backgroundImage: `url('../user.png')` }}
-          ></div>
-
-          <div className="msg-bubble">
-            <div className="msg-info">
-              <div className="msg-info-name">Sajad</div>
-              <div className="msg-info-time">12:46</div>
-            </div>
-
-            <div className="msg-text">
-              You can change your name in JS section!
-            </div>
-          </div>
+          {msgList.map((data) => (
+            <>
+              <div className="flex flex-row-reverse">
+                <div
+                  className="msg-img"
+                  style={{ backgroundImage: `url('../user.png')` }}
+                ></div>
+                <div key={data.id} className="msg-bubble">
+                  <div className="msg-info">
+                    <div className="msg-info-name">{data.author}</div>
+                    <div className="msg-info-time">{data.time}</div>
+                  </div>
+                  <div className="msg-text">{data.message}</div>
+                </div>
+              </div>
+            </>
+          ))}
         </div>
       </main>
 
