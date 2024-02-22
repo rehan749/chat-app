@@ -10,11 +10,12 @@
     display: flex;
     flex-flow: column wrap;
     justify-content: space-between;
-    width: 100%;
+    width: 95%;
     max-width: 867px;
     /* margin: 25px 10px; */
     margin: auto;
-    height: 800px;
+    margin-top: 10px;
+    height: 700px;
     border: var(--border);
     border-radius: 5px;
     background: var(--msger-bg);
@@ -83,19 +84,22 @@
     font-size: 0.85em;
   }
   
-  .left-msg .msg-bubble {
+  #left-msg .flex-row-reverse{
+flex-direction: row !important;
+  }
+  #left-msg .msg-bubble {
     border-bottom-left-radius: 0;
   }
   
-  .right-msg {
+  #right-msg {
     flex-direction: column;
   }
-  .right-msg .msg-bubble {
+  #right-msg .msg-bubble {
     background: var(--right-msg-bg);
     color: #fff;
     border-bottom-right-radius: 0;
   }
-  .right-msg .msg-img {
+  #right-msg .msg-img {
     margin: 0 0 0 10px;
   }
   

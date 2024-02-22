@@ -43,6 +43,9 @@ const Chat = ({ socket, name, roomId }) => {
     setMsg("");
   };
   return (
+    <div className="container">
+
+  
     <section className="msger">
       <h1 className="font-black text-center text-3xl py-4">
         Welcome to {name}
@@ -50,7 +53,7 @@ const Chat = ({ socket, name, roomId }) => {
 
       <header className="msger-header">
         <div className="msger-header-title">
-          <i className="fas fa-comment-alt"></i> SimpleChat
+          <i className="fas fa-comment-alt"></i> create by rehan
         </div>
         <div className="msger-header-options">
           <span>
@@ -60,7 +63,9 @@ const Chat = ({ socket, name, roomId }) => {
       </header>
 
       <main className="msger-chat">
-        <div className="msg left-msg">
+
+
+        {/* <div className="msg left-msg">
           <div
             className="msg-img"
             style={{ backgroundImage: `url('../user.png')` }}
@@ -76,17 +81,18 @@ const Chat = ({ socket, name, roomId }) => {
               Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="msg right-msg">
           {msgList.map((data) => (
+             <div key={data.id} className="msg" id={name === data.author ? "right-msg" : "left-msg"}>
+
             <>
               <div className="flex flex-row-reverse">
                 <div
                   className="msg-img"
                   style={{ backgroundImage: `url('../user.png')` }}
                 ></div>
-                <div key={data.id} className="msg-bubble">
+                <div  className="msg-bubble">
                   <div className="msg-info">
                     <div className="msg-info-name">{data.author}</div>
                     <div className="msg-info-time">{data.time}</div>
@@ -95,8 +101,8 @@ const Chat = ({ socket, name, roomId }) => {
                 </div>
               </div>
             </>
-          ))}
         </div>
+          ))}
       </main>
 
       <form className="msger-inputarea">
@@ -112,6 +118,7 @@ const Chat = ({ socket, name, roomId }) => {
         </button>
       </form>
     </section>
+    </div>
   );
 };
 
