@@ -4,7 +4,15 @@ import { useState } from "react";
 import Chat from "@/components/Chat";
 import { io } from "socket.io-client";
 
-const socket = io.connect("http://localhost:5000");
+// const socket = io.connect("http://localhost:5000");
+// Specify options for socket.io connection
+const socket = io('http://localhost:5000', {
+  transports: ['websocket'], // Use websocket transport
+  withCredentials: true, // Send cookies with the request if needed
+  extraHeaders: {
+    'Access-Control-Allow-Origin': 'https://chat-app-ruby-six.vercel.app'
+  }
+});
 
 export default function Home() {
   const [login, setLogin] = useState({ name: "", roomId: "" });
