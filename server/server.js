@@ -7,6 +7,7 @@ import http from 'http';
 const app = express();
 app.use(cors());
 const port = 5000;
+const domain = 'https://chat-app-ruby-six.vercel.app/';
 
 const server = http.createServer(app);
 const io = new Server(server,{
@@ -45,5 +46,5 @@ io.on('connection', (socket) => {
 })
 
   server.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Server is running on http://${domain}:${port}`);
 })
